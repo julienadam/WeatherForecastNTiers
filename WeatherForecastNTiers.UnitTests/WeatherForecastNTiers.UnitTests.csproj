@@ -21,10 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WebApplication2.Business\WeatherForecastNTiers.Business.csproj" />
-    <ProjectReference Include="..\WebApplication2.Common\WeatherForecastNTiers.Common.csproj" />
-    <ProjectReference Include="..\WebApplication2.DataAccess\WeatherForecastNTiers.DataAccess.csproj" />
-    <ProjectReference Include="..\WebApplication2\WeatherForecastNTiers.csproj" />
+    <ProjectReference Include="..\WeatherForecastNTiers.Business\WeatherForecastNTiers.Business.csproj" />
+    <ProjectReference Include="..\WeatherForecastNTiers.Common\WeatherForecastNTiers.Common.csproj" />
+    <ProjectReference Include="..\WeatherForecastNTiers.DataAccess\WeatherForecastNTiers.DataAccess.csproj" />
+    <ProjectReference Include="..\WeatherForecastNTiers\WeatherForecastNTiers.csproj" />
   </ItemGroup>
 
 </Project>

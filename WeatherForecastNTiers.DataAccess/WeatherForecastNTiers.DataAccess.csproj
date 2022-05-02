@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WebApplication2.Common\WeatherForecastNTiers.Common.csproj" />
+    <ProjectReference Include="..\WeatherForecastNTiers.Common\WeatherForecastNTiers.Common.csproj" />
   </ItemGroup>
 
 </Project>
