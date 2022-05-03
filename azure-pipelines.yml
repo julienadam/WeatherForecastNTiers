@@ -28,19 +28,32 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- task: VSTest@2
+- task: DotNetCoreCLI@2
+  displayName: Test
   inputs:
-    testSelector: 'testAssemblies'
-    testAssemblyVer2: |
-      **\bin\$(BuildConfiguration)\**\*.UnitTests.dll
-      !**\obj\**
-      !**\ref\**
-    searchFolder: '$(System.DefaultWorkingDirectory)'
-    runTestsInIsolation: true
-    codeCoverageEnabled: true
+    command: test
+    projects: '**/*Tests/*.csproj'
+    arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage"'
 
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'VSTest'
-    testResultsFiles: '**/*.trx'
-    
+    testResultsFiles: '$(Agent.TempDirectory)/**/*.trx'
+
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage'
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '$(Agent.TempDirectory)/**/coverage.cobertura.xml'
+
+# - task: VSTest@2
+#   inputs:
+#     testSelector: 'testAssemblies'
+#     testAssemblyVer2: |
+#       **\bin\$(BuildConfiguration)\**\*.UnitTests.dll
+#       !**\obj\**
+#       !**\ref\**
+#     searchFolder: '$(System.DefaultWorkingDirectory)'
+#     runTestsInIsolation: true
+#     codeCoverageEnabled: true
+
