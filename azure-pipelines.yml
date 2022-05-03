@@ -45,7 +45,7 @@ steps:
 
   inputs:
     codeCoverageTool: Cobertura
-    pathToSources: $(WorkDirectory)
+    pathToSources: $(Build.Repository.LocalPath)
     summaryFileLocation: '$(Agent.TempDirectory)/**/coverage.cobertura.xml'
 
 # - task: VSTest@2
