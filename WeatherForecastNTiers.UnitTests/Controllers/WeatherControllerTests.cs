@@ -15,7 +15,7 @@ namespace WeatherForecastNTiers.UnitTests.Controllers
             IWeatherForecastService service = new NopeWeatherService();
             var controller = new WeatherForecastController(service, null);
             var result = controller.GetByCity(null);
-            Assert.IsType<BadRequestResult>(result);
+            Assert.IsType<BadRequestObjectResult>(result);
         }
 
         [Fact]
