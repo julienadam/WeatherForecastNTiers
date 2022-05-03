@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using WeatherForecastNTiers.Business;
 using WeatherForecastNTiers.DataAccess;
-using WebApplication2.DataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
 

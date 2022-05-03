@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "WebApplication2": {
+    "WeatherForecastNTiers": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

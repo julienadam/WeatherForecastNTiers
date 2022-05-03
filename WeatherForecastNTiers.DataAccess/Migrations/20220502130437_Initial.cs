@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace WebApplication2.DataAccess.Migrations
+namespace WeatherForecastNTiers.DataAccess.Migrations
 {
     public partial class Initial : Migration
     {

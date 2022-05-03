@@ -9,8 +9,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WeatherForecastNTiers.DataAccess;
-using WebApplication2.DataAccess;
-namespace WebApplication2.DataAccess.Migrations
+namespace WeatherForecastNTiers.DataAccess.Migrations
 {
     [DbContext(typeof(WeatherDbContext))]
     partial class WeatherDbContextModelSnapshot : ModelSnapshot
@@ -24,7 +23,7 @@ namespace WebApplication2.DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("WebApplication2.Common.WeatherForecast", b =>
+            modelBuilder.Entity("WeatherForecastNTiers.Common.WeatherForecast", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
