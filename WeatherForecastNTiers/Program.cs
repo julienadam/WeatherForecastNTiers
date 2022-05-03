@@ -8,6 +8,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 // Add services to the container.
 builder.Services.AddDbContext<WeatherDbContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddScoped<IWeatherRepository, DbWeatherRepository>();
 builder.Services.AddScoped<IWeatherForecastService, WeatherForecastService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
