@@ -4,7 +4,7 @@ using WeatherForecastNTiers.Business;
 namespace WeatherForecastNTiers.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class WeatherForecastController : ControllerBase
     {
         private readonly IWeatherForecastService service;
@@ -16,13 +16,14 @@ namespace WeatherForecastNTiers.Controllers
             this.logger = logger;
         }
         
-        [HttpGet(Name = "GetByCity")]
+        [HttpGet]
+        [Route(nameof(GetByCity))]
         public IActionResult GetByCity(string city = "Vannes")
         {
             if (string.IsNullOrEmpty(city))
             {
                 // Essayer de trouver la localisation avec l'adresse ip ?
-                return BadRequest();
+                return BadRequest(new { Status = "Invalid parameters", Message = "City was not provided"});
             }
 
             var result = service.GetForeCast(city, "fr");

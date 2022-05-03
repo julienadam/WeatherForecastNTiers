@@ -9,8 +9,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 // Add services to the container.
 builder.Services.AddDbContext<WeatherDbContext>(options => options.UseSqlServer(connectionString));
-builder.Services.AddTransient<IWeatherRepository, DbWeatherRepository>();
-builder.Services.AddTransient<IWeatherForecastService, WeatherForecastService>();
+builder.Services.AddScoped<IWeatherForecastService, WeatherForecastService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -26,10 +25,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
 
 app.Run();
+
+// Required for hosted end-to-end tests
+public partial class Program { }

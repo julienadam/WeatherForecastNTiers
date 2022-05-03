@@ -15,13 +15,14 @@ namespace WeatherForecastNTiers.UnitTests.EndToEnd
 {
     public class WeatherForecastFeatureTests
     {
-        private WeatherDbContext context;
+        private readonly WeatherForecastController controller;
+        private static readonly WeatherDbContext context;
 
-        public WeatherForecastFeatureTests()
+        static WeatherForecastFeatureTests()
         {
             var options =
                 new DbContextOptionsBuilder<WeatherDbContext>()
-                    .UseInMemoryDatabase(databaseName: "WeatherDb")
+                    .UseInMemoryDatabase(databaseName: "WeatherForecastFeatureTestsDb")
                     .Options;
             context = new WeatherDbContext(options);
             var entity = new WeatherForecast
@@ -36,19 +37,29 @@ namespace WeatherForecastNTiers.UnitTests.EndToEnd
             context.SaveChanges();
         }
 
-        [Fact]
-        public void Weather_data_if_data_present_for_city()
+        public WeatherForecastFeatureTests()
         {
             var repository = new DbWeatherRepository(context);
             var service = new WeatherForecastService(repository);
-            var controller = new WeatherForecastController(service, null);
+            controller = new WeatherForecastController(service, null);
+        }
 
+        [Fact]
+        public void Weather_data_if_data_present_for_city()
+        {
             var result = controller.GetByCity("Foo");
             var okObject = Assert.IsType<OkObjectResult>(result);
             var weatherResult = Assert.IsType<WeatherForecast>(okObject.Value);
             Assert.Equal("Beau fixe", weatherResult.Summary);
             Assert.Equal("Foo", weatherResult.City);
             Assert.Equal(42, weatherResult.TemperatureC);
+        }
+
+        [Fact]
+        public void Weather_data_is_not_found_if_data_not_present_for_city()
+        {
+            var result = controller.GetByCity("dhjgfjhdg");
+            Assert.IsType<NotFoundResult>(result);
         }
     }
 }
