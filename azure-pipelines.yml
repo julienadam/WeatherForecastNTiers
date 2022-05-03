@@ -42,8 +42,10 @@ steps:
 
 - task: PublishCodeCoverageResults@1
   displayName: 'Publish code coverage'
+
   inputs:
     codeCoverageTool: Cobertura
+    pathToSources: $(WorkDirectory)
     summaryFileLocation: '$(Agent.TempDirectory)/**/coverage.cobertura.xml'
 
 # - task: VSTest@2
