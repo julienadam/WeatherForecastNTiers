@@ -47,15 +47,3 @@ steps:
     codeCoverageTool: Cobertura
     pathToSources: $(Build.Repository.LocalPath)
     summaryFileLocation: '$(Agent.TempDirectory)/**/coverage.cobertura.xml'
-
-# - task: VSTest@2
-#   inputs:
-#     testSelector: 'testAssemblies'
-#     testAssemblyVer2: |
-#       **\bin\$(BuildConfiguration)\**\*.UnitTests.dll
-#       !**\obj\**
-#       !**\ref\**
-#     searchFolder: '$(System.DefaultWorkingDirectory)'
-#     runTestsInIsolation: true
-#     codeCoverageEnabled: true
-
