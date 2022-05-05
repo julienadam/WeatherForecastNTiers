@@ -9,6 +9,7 @@ using WeatherForecastNTiers.Business;
 using WeatherForecastNTiers.Common;
 using WeatherForecastNTiers.Controllers;
 using WeatherForecastNTiers.DataAccess;
+using WeatherForecastNTiers.ViewModels;
 using Xunit;
 
 namespace WeatherForecastNTiers.UnitTests.EndToEnd
@@ -48,10 +49,10 @@ namespace WeatherForecastNTiers.UnitTests.EndToEnd
         public void Weather_data_if_data_present_for_city()
         {
             var result = controller.GetByCity("Foo");
-            var okObject = Assert.IsType<OkObjectResult>(result);
-            var weatherResult = Assert.IsType<WeatherForecast>(okObject.Value);
-            Assert.Equal("Beau fixe", weatherResult.Summary);
-            Assert.Equal("Foo", weatherResult.City);
+            var okObject = Assert.IsType<OkObjectResult>(result.Result);
+            var weatherResult = Assert.IsType<WeatherForecastViewModel>(okObject.Value);
+            Assert.Equal("Beau fixe...", weatherResult.Summary);
+            Assert.Equal("Foo", weatherResult.Location);
             Assert.Equal(42, weatherResult.TemperatureC);
         }
 
@@ -59,7 +60,7 @@ namespace WeatherForecastNTiers.UnitTests.EndToEnd
         public void Weather_data_is_not_found_if_data_not_present_for_city()
         {
             var result = controller.GetByCity("dhjgfjhdg");
-            Assert.IsType<NotFoundResult>(result);
+            Assert.IsType<NotFoundResult>(result.Result);
         }
     }
 }

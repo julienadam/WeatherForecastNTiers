@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using WeatherForecastNTiers.Business;
 using WeatherForecastNTiers.Common;
 using WeatherForecastNTiers.Controllers;
+using WeatherForecastNTiers.ViewModels;
 using Xunit;
 
 namespace WeatherForecastNTiers.UnitTests.Controllers
@@ -15,7 +16,7 @@ namespace WeatherForecastNTiers.UnitTests.Controllers
             IWeatherForecastService service = new NopeWeatherService();
             var controller = new WeatherForecastController(service, null);
             var result = controller.GetByCity(null);
-            Assert.IsType<BadRequestObjectResult>(result);
+            Assert.IsType<BadRequestObjectResult>(result.Result);
         }
 
         [Fact]
@@ -24,7 +25,7 @@ namespace WeatherForecastNTiers.UnitTests.Controllers
             IWeatherForecastService service = new NopeWeatherService();
             var controller = new WeatherForecastController(service, null);
             var result = controller.GetByCity("Foo");
-            Assert.IsType<NotFoundResult>(result);
+            Assert.IsType<NotFoundResult>(result.Result);
         }
 
         [Fact]
@@ -33,9 +34,10 @@ namespace WeatherForecastNTiers.UnitTests.Controllers
             IWeatherForecastService service = new StaticWeatherService();
             var controller = new WeatherForecastController(service, null);
             var result = controller.GetByCity("Foo");
-            var okObject = Assert.IsType<OkObjectResult>(result);
-            var weatherResult = Assert.IsType<WeatherForecast>(okObject.Value);
-            Assert.Equal(42, weatherResult.Id);
+            var okObject = Assert.IsType<OkObjectResult>(result.Result);
+            var weatherResult = Assert.IsType<WeatherForecastViewModel>(okObject.Value);
+            Assert.Equal("Foo", weatherResult.Location);
+            Assert.Equal("Lorem ipsum dolor et sic rosa lupus...", weatherResult.Summary);
         }
     }
 
@@ -53,7 +55,11 @@ namespace WeatherForecastNTiers.UnitTests.Controllers
         {
             return new WeatherForecast
             {
-                City = city, Id = 42, Date = new DateTime(2001, 02, 03), TemperatureC = 42, Summary = "Foo"
+                City = city,
+                Id = 42,
+                Date = new DateTime(2001, 02, 03),
+                TemperatureC = 42,
+                Summary = "Lorem ipsum dolor et sic rosa lupus"
             };
         }
     }

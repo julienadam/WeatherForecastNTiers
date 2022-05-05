@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using WeatherForecastNTiers.Business;
+using WeatherForecastNTiers.Common;
+using WeatherForecastNTiers.DataAccess;
+using WeatherForecastNTiers.ViewModels;
 
 namespace WeatherForecastNTiers.Controllers
 {
@@ -18,7 +21,7 @@ namespace WeatherForecastNTiers.Controllers
         
         [HttpGet]
         [Route(nameof(GetByCity))]
-        public IActionResult GetByCity(string city = "Vannes")
+        public ActionResult<WeatherForecastViewModel> GetByCity(string city = "Vannes")
         {
             if (string.IsNullOrEmpty(city))
             {
@@ -33,7 +36,12 @@ namespace WeatherForecastNTiers.Controllers
                 return NotFound();
             }
             
-            return Ok(result);
+            return Ok(new WeatherForecastViewModel
+            {
+                Location = result.City,
+                TemperatureC = result.TemperatureC,
+                Summary = result.Summary + "..."
+            });
         }
     }
 }
