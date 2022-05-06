@@ -33,7 +33,7 @@ steps:
   inputs:
     command: test
     projects: '**/*Tests/*.csproj'
-    arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage"'
+    arguments: '--logger trx --configuration $(buildConfiguration) --collect:"XPlat Code Coverage"'
 
 - task: PublishTestResults@2
   inputs:
